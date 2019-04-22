@@ -1,15 +1,19 @@
 #include <iostream> 
 using namespace std;
+#define len 20
 
 class game {
-protected:
+private:
 	char game_name[20];
+protected: 
+	char* strcpy(char* destination, const char* source);
 public:
 	void SetName(char* game_name);
-	void GetName();
-	char* strcpy(char* destination, const char* source);
+	const char* GetName() const;
 };
-class checkers : protected game {
+
+class checkers : public game {
+private:
 	char imit_game_name[20];
 	double figure_weight;
 	double board_weight;
@@ -49,7 +53,7 @@ int main()
 	qs_obj(arr, 0, arr_size);
 	for (i = 0; i < arr_size; i++)
 	{
-		cout << "Name of game is "; arr[i].ShowAllImit();
+		cout << "Name of game is " << arr[i].GetName() << endl;
 		cout << "Board weight is " << arr[i].GetBoardWeight(arr[i]) << endl;
 		cout << "Figure weight is " << arr[i].GetFigureWeight(arr[i]) << endl;
 		cout << "------------------" << endl;
@@ -64,9 +68,9 @@ void game::SetName(char* game_name)
 	strcpy(this->game_name, game_name);
 }
 
-void game::GetName() {
-	cout << this->game_name << endl;
-
+const char* game::GetName() const {
+	//cout << this->game_name << endl;
+	return this->game_name;
 }
 
 char* game::strcpy(char* destination, const char* source)
@@ -87,7 +91,7 @@ char* game::strcpy(char* destination, const char* source)
 void checkers::SetImitName(char* local_name)
 {
 	SetName(local_name);
-	strcpy(imit_game_name, game_name);
+	strcpy(imit_game_name, this->GetName());
 }
 
 void checkers::ShowAllImit() {
