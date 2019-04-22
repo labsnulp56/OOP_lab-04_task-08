@@ -1,8 +1,9 @@
 #include <iostream> 
+
 using namespace std;
 #define len 20
 
-class game {
+class Game {
 private:
 	char game_name[20];
 protected: 
@@ -12,7 +13,7 @@ public:
 	const char* GetName() const;
 };
 
-class checkers : public game {
+class Checkers : public Game {
 private:
 	char imit_game_name[20];
 	double figure_weight;
@@ -22,17 +23,18 @@ public:
 	void ShowAllImit();
 	void SetFigureWeight(double figure_weight);
 	void SetBoardWeight(double board_weight);
-	double GetFigureWeight(checkers &obj);
-	double GetBoardWeight(checkers &obj);
-	friend void quick_object(checkers items[], int count);
-	friend void qs_obj(checkers items[], int left, int right);
-	friend double WeightSum(checkers items[], int count);
+	double GetFigureWeight(Checkers &obj);
+	double GetBoardWeight(Checkers &obj);
+	friend void quick_object(Checkers items[], int count);
+	friend void qs_obj(Checkers items[], int left, int right);
+	friend double WeightSum(Checkers items[], int count);
 };
 
 int main()
 {
+	system("color F1");
 	const int arr_size = 4;
-	checkers arr[arr_size];
+	Checkers arr[arr_size];
 	char temp_name[20];
 	double temp_board_weight;
 	double temp_figure_weight;
@@ -63,17 +65,17 @@ int main()
 	return 0;
 }
 
-void game::SetName(char* game_name)
+void Game::SetName(char* game_name)
 {
 	strcpy(this->game_name, game_name);
 }
 
-const char* game::GetName() const {
+const char* Game::GetName() const {
 	//cout << this->game_name << endl;
 	return this->game_name;
 }
 
-char* game::strcpy(char* destination, const char* source)
+char* Game::strcpy(char* destination, const char* source)
 {
 	if (destination == NULL)
 		return NULL;
@@ -88,46 +90,46 @@ char* game::strcpy(char* destination, const char* source)
 	return ptr;
 }
 
-void checkers::SetImitName(char* local_name)
+void Checkers::SetImitName(char* local_name)
 {
 	SetName(local_name);
 	strcpy(imit_game_name, this->GetName());
 }
 
-void checkers::ShowAllImit() {
+void Checkers::ShowAllImit() {
 	GetName();
 }
 
-void checkers::SetFigureWeight(double figure_weight)
+void Checkers::SetFigureWeight(double figure_weight)
 {
 	this->figure_weight = figure_weight;
 }
 
-void checkers::SetBoardWeight(double board_weight)
+void Checkers::SetBoardWeight(double board_weight)
 {
 	this->board_weight = board_weight;
 }
 
-double checkers::GetFigureWeight(checkers &obj)
+double Checkers::GetFigureWeight(Checkers &obj)
 {
 	return this->figure_weight;
 }
 
-double checkers::GetBoardWeight(checkers &obj)
+double Checkers::GetBoardWeight(Checkers &obj)
 {
 	return this->board_weight;
 }
 
-void quick_object(checkers items[], int count)
+void quick_object(Checkers items[], int count)
 {
 	qs_obj(items, 0, count - 1);
 }
 
-void qs_obj(checkers items[], int left, int right)
+void qs_obj(Checkers items[], int left, int right)
 {
 	register int i, j;
 	double x;
-	checkers temp;
+	Checkers temp;
 	i = left; j = right + 1;
 	x = items[(left + right) / 2].GetFigureWeight(items[(left + right) / 2]);
 	do {
@@ -144,7 +146,7 @@ void qs_obj(checkers items[], int left, int right)
 	if (i < right) qs_obj(items, i, right);
 }
 
-double WeightSum(checkers items[], int count)
+double WeightSum(Checkers items[], int count)
 {
 	register int i = 0;
 	double sum = 0;
